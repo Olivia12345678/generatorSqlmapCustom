@@ -1,0 +1,339 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zhoujh.dao.InstitutionMapper" >
+  <resultMap id="BaseResultMap" type="com.zhoujh.pojo.pojo.Institution" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="institution_name" property="institutionName" jdbcType="VARCHAR" />
+    <result column="institution_code" property="institutionCode" jdbcType="VARCHAR" />
+    <result column="institution_type" property="institutionType" jdbcType="INTEGER" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="institution_simple_name" property="institutionSimpleName" jdbcType="VARCHAR" />
+    <result column="institution_account" property="institutionAccount" jdbcType="VARCHAR" />
+    <result column="contact_man" property="contactMan" jdbcType="VARCHAR" />
+    <result column="contact_phone" property="contactPhone" jdbcType="VARCHAR" />
+    <result column="post_code" property="postCode" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="register_time" property="registerTime" jdbcType="VARCHAR" />
+    <result column="creator" property="creator" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, institution_name, institution_code, institution_type, address, institution_simple_name, 
+    institution_account, contact_man, contact_phone, post_code, email, register_time, 
+    creator
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.zhoujh.pojo.pojo.InstitutionExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_institution
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_institution
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_institution
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.zhoujh.pojo.pojo.InstitutionExample" >
+    delete from t_institution
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.zhoujh.pojo.pojo.Institution" >
+    insert into t_institution (id, institution_name, institution_code, 
+      institution_type, address, institution_simple_name, 
+      institution_account, contact_man, contact_phone, 
+      post_code, email, register_time, 
+      creator)
+    values (#{id,jdbcType=INTEGER}, #{institutionName,jdbcType=VARCHAR}, #{institutionCode,jdbcType=VARCHAR}, 
+      #{institutionType,jdbcType=INTEGER}, #{address,jdbcType=VARCHAR}, #{institutionSimpleName,jdbcType=VARCHAR}, 
+      #{institutionAccount,jdbcType=VARCHAR}, #{contactMan,jdbcType=VARCHAR}, #{contactPhone,jdbcType=VARCHAR}, 
+      #{postCode,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{registerTime,jdbcType=VARCHAR}, 
+      #{creator,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zhoujh.pojo.pojo.Institution" >
+    insert into t_institution
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="institutionName != null" >
+        institution_name,
+      </if>
+      <if test="institutionCode != null" >
+        institution_code,
+      </if>
+      <if test="institutionType != null" >
+        institution_type,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="institutionSimpleName != null" >
+        institution_simple_name,
+      </if>
+      <if test="institutionAccount != null" >
+        institution_account,
+      </if>
+      <if test="contactMan != null" >
+        contact_man,
+      </if>
+      <if test="contactPhone != null" >
+        contact_phone,
+      </if>
+      <if test="postCode != null" >
+        post_code,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="registerTime != null" >
+        register_time,
+      </if>
+      <if test="creator != null" >
+        creator,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="institutionName != null" >
+        #{institutionName,jdbcType=VARCHAR},
+      </if>
+      <if test="institutionCode != null" >
+        #{institutionCode,jdbcType=VARCHAR},
+      </if>
+      <if test="institutionType != null" >
+        #{institutionType,jdbcType=INTEGER},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="institutionSimpleName != null" >
+        #{institutionSimpleName,jdbcType=VARCHAR},
+      </if>
+      <if test="institutionAccount != null" >
+        #{institutionAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="contactMan != null" >
+        #{contactMan,jdbcType=VARCHAR},
+      </if>
+      <if test="contactPhone != null" >
+        #{contactPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="postCode != null" >
+        #{postCode,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="registerTime != null" >
+        #{registerTime,jdbcType=VARCHAR},
+      </if>
+      <if test="creator != null" >
+        #{creator,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.zhoujh.pojo.pojo.InstitutionExample" resultType="java.lang.Integer" >
+    select count(*) from t_institution
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_institution
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.institutionName != null" >
+        institution_name = #{record.institutionName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.institutionCode != null" >
+        institution_code = #{record.institutionCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.institutionType != null" >
+        institution_type = #{record.institutionType,jdbcType=INTEGER},
+      </if>
+      <if test="record.address != null" >
+        address = #{record.address,jdbcType=VARCHAR},
+      </if>
+      <if test="record.institutionSimpleName != null" >
+        institution_simple_name = #{record.institutionSimpleName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.institutionAccount != null" >
+        institution_account = #{record.institutionAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="record.contactMan != null" >
+        contact_man = #{record.contactMan,jdbcType=VARCHAR},
+      </if>
+      <if test="record.contactPhone != null" >
+        contact_phone = #{record.contactPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.postCode != null" >
+        post_code = #{record.postCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.email != null" >
+        email = #{record.email,jdbcType=VARCHAR},
+      </if>
+      <if test="record.registerTime != null" >
+        register_time = #{record.registerTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.creator != null" >
+        creator = #{record.creator,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_institution
+    set id = #{record.id,jdbcType=INTEGER},
+      institution_name = #{record.institutionName,jdbcType=VARCHAR},
+      institution_code = #{record.institutionCode,jdbcType=VARCHAR},
+      institution_type = #{record.institutionType,jdbcType=INTEGER},
+      address = #{record.address,jdbcType=VARCHAR},
+      institution_simple_name = #{record.institutionSimpleName,jdbcType=VARCHAR},
+      institution_account = #{record.institutionAccount,jdbcType=VARCHAR},
+      contact_man = #{record.contactMan,jdbcType=VARCHAR},
+      contact_phone = #{record.contactPhone,jdbcType=VARCHAR},
+      post_code = #{record.postCode,jdbcType=VARCHAR},
+      email = #{record.email,jdbcType=VARCHAR},
+      register_time = #{record.registerTime,jdbcType=VARCHAR},
+      creator = #{record.creator,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zhoujh.pojo.pojo.Institution" >
+    update t_institution
+    <set >
+      <if test="institutionName != null" >
+        institution_name = #{institutionName,jdbcType=VARCHAR},
+      </if>
+      <if test="institutionCode != null" >
+        institution_code = #{institutionCode,jdbcType=VARCHAR},
+      </if>
+      <if test="institutionType != null" >
+        institution_type = #{institutionType,jdbcType=INTEGER},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="institutionSimpleName != null" >
+        institution_simple_name = #{institutionSimpleName,jdbcType=VARCHAR},
+      </if>
+      <if test="institutionAccount != null" >
+        institution_account = #{institutionAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="contactMan != null" >
+        contact_man = #{contactMan,jdbcType=VARCHAR},
+      </if>
+      <if test="contactPhone != null" >
+        contact_phone = #{contactPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="postCode != null" >
+        post_code = #{postCode,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="registerTime != null" >
+        register_time = #{registerTime,jdbcType=VARCHAR},
+      </if>
+      <if test="creator != null" >
+        creator = #{creator,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zhoujh.pojo.pojo.Institution" >
+    update t_institution
+    set institution_name = #{institutionName,jdbcType=VARCHAR},
+      institution_code = #{institutionCode,jdbcType=VARCHAR},
+      institution_type = #{institutionType,jdbcType=INTEGER},
+      address = #{address,jdbcType=VARCHAR},
+      institution_simple_name = #{institutionSimpleName,jdbcType=VARCHAR},
+      institution_account = #{institutionAccount,jdbcType=VARCHAR},
+      contact_man = #{contactMan,jdbcType=VARCHAR},
+      contact_phone = #{contactPhone,jdbcType=VARCHAR},
+      post_code = #{postCode,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      register_time = #{registerTime,jdbcType=VARCHAR},
+      creator = #{creator,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
